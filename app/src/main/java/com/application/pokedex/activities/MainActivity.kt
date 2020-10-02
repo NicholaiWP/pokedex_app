@@ -25,7 +25,9 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar))
         setupActionBar(navController)
 
+        //start pokemon detail (info) fragment
         LocalBroadcastManager.getInstance(this).registerReceiver(showDetail, IntentFilter(UtilitySingleton.KEY_POSITION))
+
         LocalBroadcastManager.getInstance(this).registerReceiver(showEvolution, IntentFilter(UtilitySingleton.KEY_NUM_EVOLUTION))
 
     }

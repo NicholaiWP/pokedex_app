@@ -8,6 +8,12 @@
     android:layout_height="match_parent"
     tools:context=".activities.MainActivity">
 
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </androidx.viewpager.widget.ViewPager>
+
     <androidx.appcompat.widget.Toolbar
         android:minHeight="?attr/actionBarSize"
         android:background="?attr/colorPrimary"

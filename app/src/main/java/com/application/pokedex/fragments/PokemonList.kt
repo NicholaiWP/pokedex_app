@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.application.pokedex.R
 import com.application.pokedex.adapter.PokemonListAdapter
-import com.application.pokedex.misc.ItemOffsetDecoration
 import com.application.pokedex.misc.UtilitySingleton
 import com.application.pokedex.model.Pokemon
 import com.application.pokedex.retrofit.IPokemonList
@@ -58,8 +57,7 @@ class PokemonList : Fragment(), PopupMenu.OnMenuItemClickListener {
         recycler_view.setHasFixedSize(true)
         recycler_view.clipChildren = false
         recycler_view.layoutManager = GridLayoutManager(activity, 3)
-        val itemDecoration = ItemOffsetDecoration(requireActivity(),R.dimen.spacing)
-        recycler_view.addItemDecoration(itemDecoration)
+
 
         search_bar = itemView.findViewById(R.id.search_bar) as MaterialSearchBar
 

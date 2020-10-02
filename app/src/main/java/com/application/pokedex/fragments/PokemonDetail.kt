@@ -10,13 +10,13 @@ import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.ViewPager
 import com.application.pokedex.R
 import com.application.pokedex.adapter.PokemonEvolutionAdapter
 import com.application.pokedex.adapter.PokemonTypeAdapter
 import com.application.pokedex.misc.UtilitySingleton
 import com.application.pokedex.model.Pokemon
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.fragment_pokemon_detail.*
 
 
 /**
@@ -35,7 +35,6 @@ class PokemonDetail : Fragment() {
      lateinit var recycler_weakness:RecyclerView
      lateinit var recycler_prev_evo:RecyclerView
      lateinit var recycler_next_evo:RecyclerView
-
 
     companion object{
         private var instance:PokemonDetail? = null
