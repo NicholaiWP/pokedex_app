@@ -10,6 +10,7 @@ object UtilitySingleton {
     val KEY_POSITION = "position"
     val KEY_NUM_EVOLUTION = "evolution"
 
+    //finds pokémon by its id-number
     fun findPokemonByNum(number: String?): Pokemon? {
         for (pokemon:Pokemon in UtilitySingleton.pokemonList){
             if(pokemon.num.equals(number)){
