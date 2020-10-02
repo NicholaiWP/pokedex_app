@@ -31,10 +31,12 @@ class PokemonDetail : Fragment() {
     internal lateinit var pokemon_height:TextView
     internal lateinit var pokemon_weight:TextView
 
-     lateinit var recycler_type:RecyclerView
-     lateinit var recycler_weakness:RecyclerView
-     lateinit var recycler_prev_evo:RecyclerView
-     lateinit var recycler_next_evo:RecyclerView
+     internal lateinit var recycler_type:RecyclerView
+     internal lateinit var recycler_weakness:RecyclerView
+     internal lateinit var recycler_prev_evo:RecyclerView
+     internal lateinit var recycler_next_evo:RecyclerView
+
+    internal lateinit var linearLayoutManager:LinearLayoutManager
 
     companion object{
         private var instance:PokemonDetail? = null
@@ -56,6 +58,7 @@ class PokemonDetail : Fragment() {
 
         val pokemon = UtilitySingleton.findPokemonByNum(requireArguments().getString("num"))
 
+        linearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         pokemon_img = itemView.findViewById(R.id.pokemon_image) as ImageView
         pokemon_name = itemView.findViewById(R.id.name) as TextView
         pokemon_description = itemView.findViewById(R.id.description) as TextView
@@ -64,19 +67,19 @@ class PokemonDetail : Fragment() {
 
         recycler_next_evo = itemView.findViewById(R.id.recycler_next_evolution) as RecyclerView
         recycler_next_evo.setHasFixedSize(true)
-        recycler_next_evo.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        recycler_next_evo.layoutManager = linearLayoutManager
 
         recycler_prev_evo = itemView.findViewById(R.id.recycler_prev_evolution) as RecyclerView
         recycler_prev_evo.setHasFixedSize(true)
-        recycler_prev_evo.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        recycler_prev_evo.layoutManager = linearLayoutManager
 
         recycler_type = itemView.findViewById(R.id.recycler_type) as RecyclerView
         recycler_type.setHasFixedSize(true)
-        recycler_type.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        recycler_type.layoutManager = linearLayoutManager
 
         recycler_weakness = itemView.findViewById(R.id.recycler_weakness) as RecyclerView
         recycler_weakness.setHasFixedSize(true)
-        recycler_weakness.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        recycler_weakness.layoutManager = linearLayoutManager
 
         setDetailAboutPokemon(pokemon)
 
