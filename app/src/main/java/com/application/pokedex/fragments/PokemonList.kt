@@ -98,20 +98,27 @@ class PokemonList : Fragment() {
 
     private fun startSearchQuery(text: String) {
         if(UtilitySingleton.pokemonList.isNotEmpty()){
-            val nameResult = ArrayList<Pokemon>()
-            val typeResult = ArrayList<Pokemon>()
+
+            val resultList = ArrayList<Pokemon>()
+
             for(pokemon:Pokemon in UtilitySingleton.pokemonList){
                 if(pokemon.name!!.toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT))){
-                    nameResult.add(pokemon)
-                    search_adapter = PokemonListAdapter(requireActivity(), nameResult)
+                    resultList.add(pokemon)
+                    search_adapter = PokemonListAdapter(requireActivity(), resultList)
+                    pokemon_recyclerview.adapter = search_adapter
                 }
                 else if(pokemon.type.toString().toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT))) {
-                    typeResult.add(pokemon)
-                    search_adapter = PokemonListAdapter(requireActivity(), typeResult)
+                    resultList.add(pokemon)
+                    search_adapter = PokemonListAdapter(requireActivity(), resultList)
+                    pokemon_recyclerview.adapter = search_adapter
+                }
+                else if(text.contains("legendary") && pokemon.legendary == true || text.contains("legendary") && pokemon.legendary == true) {
+                    resultList.add(pokemon)
+                    search_adapter = PokemonListAdapter(requireActivity(), resultList)
+                    pokemon_recyclerview.adapter = search_adapter
                 }
             }
 
-            pokemon_recyclerview.adapter = search_adapter
         }
         else{
             Toast.makeText(context,"No Pokémon found", Toast.LENGTH_SHORT).show()
