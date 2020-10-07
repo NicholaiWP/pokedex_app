@@ -4,11 +4,9 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -32,7 +30,7 @@ import kotlin.collections.ArrayList
 /**
  * A simple [Fragment] subclass.
  */
-class PokemonList : Fragment(), PopupMenu.OnMenuItemClickListener {
+class PokemonList : Fragment() {
 
     internal var compositeDisposable = CompositeDisposable()
     internal var iPokemonList:IPokemonList
@@ -57,12 +55,7 @@ class PokemonList : Fragment(), PopupMenu.OnMenuItemClickListener {
         recycler_view.setHasFixedSize(true)
         recycler_view.clipChildren = false
         recycler_view.layoutManager = GridLayoutManager(activity, 3)
-
-
         search_bar = itemView.findViewById(R.id.search_bar) as MaterialSearchBar
-
-        search_bar.inflateMenu(R.menu.pokedex_menu);
-        search_bar.menu.setOnMenuItemClickListener(this)
 
         search_bar.setHint("Enter a Pokémon Name")
         search_bar.setCardViewElevation(10)
@@ -79,7 +72,6 @@ class PokemonList : Fragment(), PopupMenu.OnMenuItemClickListener {
                     for(search:String in last_suggested)
                         if(search.toLowerCase(Locale.getDefault()).contains(search_bar.text.toLowerCase(Locale.getDefault())))
                             suggest.add(search)
-                    search_bar.lastSuggestions = suggest
             }
 
             })
@@ -106,12 +98,19 @@ class PokemonList : Fragment(), PopupMenu.OnMenuItemClickListener {
 
     private fun startSearchQuery(text: String) {
         if(UtilitySingleton.pokemonList.isNotEmpty()){
-            val result = ArrayList<Pokemon>()
+            val nameResult = ArrayList<Pokemon>()
+            val typeResult = ArrayList<Pokemon>()
             for(pokemon:Pokemon in UtilitySingleton.pokemonList){
-                if(pokemon.name!!.toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT)))
-                result.add(pokemon)
+                if(pokemon.name!!.toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT))){
+                    nameResult.add(pokemon)
+                    search_adapter = PokemonListAdapter(requireActivity(), nameResult)
+                }
+                else if(pokemon.type.toString().toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT))) {
+                    typeResult.add(pokemon)
+                    search_adapter = PokemonListAdapter(requireActivity(), typeResult)
+                }
             }
-            search_adapter = PokemonListAdapter(requireActivity(), result)
+
             pokemon_recyclerview.adapter = search_adapter
         }
         else{
@@ -128,32 +127,11 @@ class PokemonList : Fragment(), PopupMenu.OnMenuItemClickListener {
                recycler_view.adapter = adapter
                search_bar.visibility = View.VISIBLE
 
-               search_bar.lastSuggestions = last_suggested
-
                for (pokemon:Pokemon in UtilitySingleton.pokemonList){
                    last_suggested.add(pokemon.name!!)
                }
            })
     }
-
-    override fun onMenuItemClick(item: MenuItem?): Boolean {
-        when(item!!.itemId){
-            R.id.choose_pokedex_id -> {
-                Toast.makeText(context, "Pokedex switch fragment", Toast.LENGTH_SHORT).show()
-                return true
-            }
-            R.id.about_id -> {
-                Toast.makeText(context, "Switches to about fragment", Toast.LENGTH_SHORT).show()
-                return true
-            }
-            R.id.setting_id -> {
-                Toast.makeText(context, "Switches to settings fragment", Toast.LENGTH_SHORT).show()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
 
 }
 

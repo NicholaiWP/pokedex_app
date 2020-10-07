@@ -20,15 +20,6 @@ object UtilitySingleton {
         return null
     }
 
-    fun findPokemonsByType(type: String?): List<Pokemon>? {
-        val result: MutableList<Pokemon> = ArrayList()
-        for (pokemon in UtilitySingleton.pokemonList) {
-            if (pokemon.type!!.contains(type!!)) result.add(pokemon)
-        }
-        return result
-    }
-
-
     fun getColorByType(type: String): Int {
         when (type) {
 
